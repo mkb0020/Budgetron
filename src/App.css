@@ -1,0 +1,163 @@
+/* Budgetron-specific styles layered on top of Pretty Kit.
+   Reuses the CSS variables already defined in ui/window/window.css
+   so everything themes automatically with the accent color. */
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-glow);
+  margin-bottom: 4px;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-group label {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--MutedGray);
+}
+
+.field-group input[type="text"],
+.field-group input[type="number"],
+.field-group input[type="date"],
+.field-group select {
+  background: var(--glass4);
+  border: 1px solid rgba(0, 255, 255, 0.18);
+  border-radius: 6px;
+  padding: 8px 10px;
+  color: var(--LightGray);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.field-group input:focus,
+.field-group select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-dim);
+}
+
+.entry-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.entry-table th {
+  text-align: left;
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--MutedGray);
+  padding: 6px 8px;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.15);
+}
+
+.entry-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.entry-table input {
+  width: 100%;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 6px 8px;
+  color: var(--LightGray);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+}
+
+.entry-table input:hover,
+.entry-table input:focus {
+  border-color: rgba(0, 255, 255, 0.20);
+  outline: none;
+  background: var(--glass4);
+}
+
+.remove-btn {
+  background: transparent;
+  border: none;
+  color: var(--LaserRed);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all var(--transition-fast);
+}
+
+.remove-btn:hover {
+  background: rgba(204, 0, 0, 0.15);
+  color: var(--PlanksPink);
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-card .label {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--MutedGray);
+}
+
+.summary-card .value {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.summary-card .value.negative {
+  color: var(--LaserRed);
+  text-shadow: 0 0 10px rgba(204, 0, 0, 0.4);
+}
+
+.progress-bar {
+  height: 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 255, 255, 0.15);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--VortexViolet), var(--AquaAura));
+  box-shadow: 0 0 8px var(--accent-glow);
+  transition: width var(--transition-medium);
+}
+
+.scroll-content {
+  overflow: auto;
+  flex: 1;
+  min-height: 0;
+}
