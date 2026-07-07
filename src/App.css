@@ -47,6 +47,14 @@
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
+.field-group input[type="text"],
+.field-group input[type="number"],
+.field-group input[type="date"]{
+  background: var(--glass4);
+}
+
+.field-group select {background: var(--ProtonPurple);}
+
 .field-group input:focus,
 .field-group select:focus {
   border-color: var(--accent);

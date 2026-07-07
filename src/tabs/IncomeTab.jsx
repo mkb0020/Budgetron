@@ -1,6 +1,6 @@
 import React from "react";
 import { useBudget } from "../state/BudgetContext.jsx";
-import { calculateNetIncome } from "../engine/calcEngine.js";
+import { calculateNetIncome, STATE_TAX } from "../engine/calcEngine.js";
 
 function currency(n) {
   return (n ?? 0).toLocaleString("en-US", { style: "currency", currency: "USD" });
@@ -56,6 +56,19 @@ export default function IncomeTab() {
             >
               <option value="single">Single</option>
               <option value="marriedJoint">Married Filing Jointly</option>
+            </select>
+          </div>
+          <div className="field-group">
+            <label>State</label>
+            <select value={income.state} onChange={(e) => set("state", e.target.value)}>
+              <option value="">Select a state...</option>
+              {Object.entries(STATE_TAX)
+                .sort((a, b) => a[1].name.localeCompare(b[1].name))
+                .map(([code, info]) => (
+                  <option key={code} value={code}>
+                    {info.name}
+                  </option>
+                ))}
             </select>
           </div>
         </div>
@@ -123,6 +136,12 @@ export default function IncomeTab() {
             <span className="value">{currency(net.federalTax)}</span>
           </div>
           <div className="summary-card">
+            <span className="label">
+              State Tax (est.){net.stateInfo ? ` — ${net.stateInfo.name}` : ""}
+            </span>
+            <span className="value">{currency(net.stateTax)}</span>
+          </div>
+          <div className="summary-card">
             <span className="label">FICA</span>
             <span className="value">{currency(net.fica.total)}</span>
           </div>
@@ -135,6 +154,19 @@ export default function IncomeTab() {
             <span className="value">{currency(net.netPerPaycheck)}</span>
           </div>
         </div>
+        {!income.state && (
+          <p className="pk-text-dim" style={{ marginTop: 10, fontSize: "0.8rem" }}>
+            No state selected — the numbers above are federal-only right now.
+          </p>
+        )}
+        {net.stateInfo?.type === "topRateApprox" && (
+          <p className="pk-text-dim" style={{ marginTop: 10, fontSize: "0.8rem" }}>
+            {net.stateInfo.name} uses progressive brackets that aren't fully built
+            out yet — this estimate uses the state's top marginal rate as a
+            conservative stand-in, so it likely overestimates your actual state
+            tax unless you're near the top bracket.
+          </p>
+        )}
       </div>
     </>
   );

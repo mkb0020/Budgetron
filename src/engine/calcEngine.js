@@ -65,13 +65,147 @@ export const FICA = {
   },
 };
 
+/**
+ * State income tax config, one entry per state + DC.
+ *
+ * ⚠️ These are approximate 2024/2025 figures from memory, NOT verified
+ * against each state's department of revenue. Confidence varies by type:
+ *   - "none": no state income tax on wages. Fairly reliable list.
+ *   - "flat": single statewide rate. Reasonably reliable, but rates do
+ *     get adjusted — verify before trusting.
+ *   - "brackets": real progressive brackets. Only built out for CA and
+ *     NY so far (the two most common for indie devs/creators). Others
+ *     fall back to "topRateApprox" until someone fills in real brackets.
+ *   - "topRateApprox": uses the state's TOP marginal rate as a flat
+ *     stand-in. This deliberately overestimates tax for most incomes
+ *     (safer to overestimate than underestimate when budgeting), but
+ *     it is NOT accurate — replace with real brackets when you can.
+ *
+ * To add real brackets for a state: change its type to "brackets" and
+ * give it a `brackets: { single: [...], marriedJoint: [...] }` shape
+ * identical to FEDERAL_BRACKETS above.
+ */
+export const STATE_TAX = {
+  // ── No state income tax on wages ──────────────────────────
+  AK: { name: "Alaska", type: "none" },
+  FL: { name: "Florida", type: "none" },
+  NV: { name: "Nevada", type: "none" },
+  NH: { name: "New Hampshire", type: "none" },
+  SD: { name: "South Dakota", type: "none" },
+  TN: { name: "Tennessee", type: "none" },
+  TX: { name: "Texas", type: "none" },
+  WA: { name: "Washington", type: "none" },
+  WY: { name: "Wyoming", type: "none" },
+
+  // ── Flat-rate states ───────────────────────────────────────
+  AZ: { name: "Arizona", type: "flat", rate: 0.025 },
+  CO: { name: "Colorado", type: "flat", rate: 0.044 },
+  GA: { name: "Georgia", type: "flat", rate: 0.0539 },
+  ID: { name: "Idaho", type: "flat", rate: 0.05695 },
+  IL: { name: "Illinois", type: "flat", rate: 0.0495 },
+  IN: { name: "Indiana", type: "flat", rate: 0.0305 },
+  IA: { name: "Iowa", type: "flat", rate: 0.038 },
+  KY: { name: "Kentucky", type: "flat", rate: 0.04 },
+  MA: { name: "Massachusetts", type: "flat", rate: 0.05 }, // excludes the +4% surtax over $1M
+  MI: { name: "Michigan", type: "flat", rate: 0.0425 },
+  MS: { name: "Mississippi", type: "flat", rate: 0.047 },
+  NC: { name: "North Carolina", type: "flat", rate: 0.0425 },
+  PA: { name: "Pennsylvania", type: "flat", rate: 0.0307 },
+  UT: { name: "Utah", type: "flat", rate: 0.0455 },
+
+  // ── Full progressive brackets (built out) ─────────────────
+  CA: {
+    name: "California",
+    type: "brackets",
+    brackets: {
+      single: [
+        [10412, 0.01],
+        [24684, 0.02],
+        [38959, 0.04],
+        [54081, 0.06],
+        [68350, 0.08],
+        [349137, 0.093],
+        [418961, 0.103],
+        [698271, 0.113],
+        [Infinity, 0.123],
+      ],
+      marriedJoint: [
+        [20824, 0.01],
+        [49368, 0.02],
+        [77918, 0.04],
+        [108162, 0.06],
+        [136700, 0.08],
+        [698274, 0.093],
+        [837922, 0.103],
+        [1396542, 0.113],
+        [Infinity, 0.123],
+      ],
+    },
+  },
+  NY: {
+    name: "New York",
+    type: "brackets",
+    brackets: {
+      single: [
+        [8500, 0.04],
+        [11700, 0.045],
+        [13900, 0.0525],
+        [80650, 0.055],
+        [215400, 0.06],
+        [1077550, 0.0685],
+        [5000000, 0.0965],
+        [25000000, 0.103],
+        [Infinity, 0.109],
+      ],
+      marriedJoint: [
+        [17150, 0.04],
+        [23600, 0.045],
+        [27900, 0.0525],
+        [161550, 0.055],
+        [323200, 0.06],
+        [2155350, 0.0685],
+        [5000000, 0.0965],
+        [25000000, 0.103],
+        [Infinity, 0.109],
+      ],
+    },
+  },
+
+  // ── Progressive states, approximated by top marginal rate ─
+  // (deliberately conservative — replace with real brackets when able)
+  AL: { name: "Alabama", type: "topRateApprox", rate: 0.05 },
+  AR: { name: "Arkansas", type: "topRateApprox", rate: 0.044 },
+  CT: { name: "Connecticut", type: "topRateApprox", rate: 0.0699 },
+  DE: { name: "Delaware", type: "topRateApprox", rate: 0.066 },
+  DC: { name: "District of Columbia", type: "topRateApprox", rate: 0.1075 },
+  HI: { name: "Hawaii", type: "topRateApprox", rate: 0.11 },
+  KS: { name: "Kansas", type: "topRateApprox", rate: 0.057 },
+  LA: { name: "Louisiana", type: "topRateApprox", rate: 0.0425 },
+  ME: { name: "Maine", type: "topRateApprox", rate: 0.0715 },
+  MD: { name: "Maryland", type: "topRateApprox", rate: 0.0575 },
+  MN: { name: "Minnesota", type: "topRateApprox", rate: 0.0985 },
+  MO: { name: "Missouri", type: "topRateApprox", rate: 0.0495 },
+  MT: { name: "Montana", type: "topRateApprox", rate: 0.059 },
+  NE: { name: "Nebraska", type: "topRateApprox", rate: 0.0584 },
+  NJ: { name: "New Jersey", type: "topRateApprox", rate: 0.1075 },
+  NM: { name: "New Mexico", type: "topRateApprox", rate: 0.059 },
+  OH: { name: "Ohio", type: "topRateApprox", rate: 0.035 },
+  OK: { name: "Oklahoma", type: "topRateApprox", rate: 0.0475 },
+  OR: { name: "Oregon", type: "topRateApprox", rate: 0.099 },
+  RI: { name: "Rhode Island", type: "topRateApprox", rate: 0.0599 },
+  SC: { name: "South Carolina", type: "topRateApprox", rate: 0.064 },
+  VT: { name: "Vermont", type: "topRateApprox", rate: 0.0875 },
+  VA: { name: "Virginia", type: "topRateApprox", rate: 0.0575 },
+  WV: { name: "West Virginia", type: "topRateApprox", rate: 0.0512 },
+  WI: { name: "Wisconsin", type: "topRateApprox", rate: 0.0765 },
+};
+
 // ─────────────────────────────────────────────────────────────
 // CORE MATH
 // ─────────────────────────────────────────────────────────────
 
-/** Progressive bracket tax on a given taxable income. */
-export function calculateFederalTax(taxableIncome, filingStatus = "single") {
-  const brackets = FEDERAL_BRACKETS[filingStatus] ?? FEDERAL_BRACKETS.single;
+/** Shared progressive-bracket math, used for both federal and state brackets. */
+function applyBrackets(taxableIncome, brackets) {
   let tax = 0;
   let prevCap = 0;
 
@@ -84,6 +218,12 @@ export function calculateFederalTax(taxableIncome, filingStatus = "single") {
   }
 
   return Math.max(0, tax);
+}
+
+/** Progressive bracket tax on a given taxable income. */
+export function calculateFederalTax(taxableIncome, filingStatus = "single") {
+  const brackets = FEDERAL_BRACKETS[filingStatus] ?? FEDERAL_BRACKETS.single;
+  return applyBrackets(taxableIncome, brackets);
 }
 
 /** Social Security + Medicare (+ additional Medicare surtax if applicable). */
@@ -108,6 +248,29 @@ export function calculateFICA(grossAnnual, filingStatus = "single") {
 }
 
 /**
+ * Estimates state income tax. Applied against the same taxable-income
+ * figure used for federal (gross minus pre-tax deductions minus federal
+ * standard deduction) as a simplification — most states have their own
+ * deduction rules that differ slightly, so this is an approximation for
+ * every state, not just the "topRateApprox" ones.
+ */
+export function calculateStateTax(taxableIncome, stateCode, filingStatus = "single") {
+  const entry = STATE_TAX[stateCode];
+  if (!entry || entry.type === "none") return 0;
+
+  if (entry.type === "flat" || entry.type === "topRateApprox") {
+    return taxableIncome * entry.rate;
+  }
+
+  if (entry.type === "brackets") {
+    const brackets = entry.brackets[filingStatus] ?? entry.brackets.single;
+    return applyBrackets(taxableIncome, brackets);
+  }
+
+  return 0;
+}
+
+/**
  * Full paycheck breakdown from the `income` slice of the budget model.
  * Pretax retirement/HSA/other reduce taxable income for federal tax
  * purposes but NOT for FICA (correct for 401k/HSA in the US).
@@ -117,6 +280,7 @@ export function calculateNetIncome(income) {
     grossAnnual = 0,
     payFrequency = "biweekly",
     filingStatus = "single",
+    state = "",
     preTax = {},
     postTaxBenefits = {},
   } = income;
@@ -135,6 +299,8 @@ export function calculateNetIncome(income) {
   );
 
   const federalTax = calculateFederalTax(taxableIncome, filingStatus);
+  const stateTax = calculateStateTax(taxableIncome, state, filingStatus);
+  const stateInfo = STATE_TAX[state] ?? null;
   const fica = calculateFICA(grossAnnual, filingStatus);
 
   const postTaxBenefitsAnnual =
@@ -146,6 +312,7 @@ export function calculateNetIncome(income) {
     grossAnnual -
       totalPreTax -
       federalTax -
+      stateTax -
       fica.total -
       postTaxBenefitsAnnual
   );
@@ -157,6 +324,8 @@ export function calculateNetIncome(income) {
     totalPreTax,
     taxableIncome,
     federalTax,
+    stateTax,
+    stateInfo,
     fica,
     postTaxBenefitsAnnual,
     netAnnual,

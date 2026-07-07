@@ -7,6 +7,7 @@ export const defaultBudget = {
     grossAnnual: 0,
     payFrequency: "biweekly", // weekly | biweekly | semimonthly | monthly
     filingStatus: "single", // single | marriedJoint
+    state: "", // two-letter state code, e.g. "CA" — blank means no state tax applied
     preTax: {
       retirementPct: 0, // % of gross into 401k/403b etc.
       hsaAnnual: 0, // $ per year into HSA

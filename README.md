@@ -20,8 +20,6 @@ It does this by combining:
 - **Business savings goals with progress tracking** — new equipment, a booth fee, a subscription you're saving up to afford.
 - **An allocation dashboard** — the one screen that pulls it all together into what's actually free to spend, save, or reinvest.
 
----
-
 ## Who Budgetron Is For
 
 - Indie game developers and app developers with a day job
@@ -38,10 +36,7 @@ It does this by combining:
 - Open source maintainers accepting sponsorships
 - Anyone building a small business while keeping a traditional job
 
----
-
 ## Not Just for Side Hustles
-
 Although Budgetron was designed around balancing a day job with an independent business, it's also useful for:
 
 - traditional household budgeting
@@ -52,13 +47,11 @@ Although Budgetron was designed around balancing a day job with an independent b
 - planning savings goals
 - separating personal and business spending
 
----
-
 ## Key Features
 
 - 🖥️ **Fully offline, local-first** — all data stored on your device, nothing sent to a server
 - 🔒 **No account, no subscription, no ads** — free to use, forever
-- 💰 **Accurate net paycheck calculator** — federal tax brackets, FICA, retirement %, HSA, benefits
+- 💰 **Accurate net paycheck calculator** — federal + state tax brackets, FICA, retirement %, HSA, benefits
 - 🛒 **Grocery trip tracker** — log varying trip totals, get a real running monthly average
 - 📊 **Allocation dashboard** — see spend/save/invest capacity at a glance
 - 🎯 **Savings goal progress bars** — for both personal and business goals
@@ -66,11 +59,7 @@ Although Budgetron was designed around balancing a day job with an independent b
 - 🖤 **Cyberpunk-themed desktop interface** — built with a custom glassmorphism window UI, not a generic form
 - 🪟 **Native desktop app** — built on Tauri, lightweight and fast, no Electron bloat
 
----
-
-## Common Use Cases
-
-Budgetron helps people answer questions like:
+## Budgetron helps people answer questions like:
 
 - Can I afford to invest another $300 into my side business this month?
 - How much of my paycheck is actually available after taxes and bills?
@@ -79,8 +68,6 @@ Budgetron helps people answer questions like:
 - Should I save for new equipment or reinvest in marketing?
 - What's my average grocery spending each month?
 - How much do I need my side hustle to earn before it becomes self-sustaining?
-
----
 
 ## Frequently Asked Questions
 
@@ -97,7 +84,7 @@ Budgetron is a native desktop app built with Tauri, supporting Windows, macOS, a
 Yes. There's no cloud sync, no analytics, and no external server. All data is stored locally on your device.
 
 **Can Budgetron calculate my actual take-home pay?**
-Yes. It estimates federal income tax and FICA based on your gross salary, filing status, pre-tax retirement/HSA contributions, and post-tax benefits, then breaks down your net pay per paycheck and per month.
+Yes. It estimates federal income tax, state income tax, and FICA based on your gross salary, filing status, state, pre-tax retirement/HSA contributions, and post-tax benefits, then breaks down your net pay per paycheck and per month.
 
 **Does Budgetron support tracking a side business separately from personal finances?**
 Yes. Budgetron has a dedicated Business tab for recurring overhead, one-time purchases, and business savings goals — kept separate from personal living expenses.
@@ -108,16 +95,7 @@ Instead of estimating a fixed monthly grocery budget, you log the total from eac
 **Is Budgetron a replacement for accounting or tax software?**
 No. Budgetron is a personal budgeting and cash-flow planning tool, not tax preparation or bookkeeping software. Its tax estimates are for planning purposes only — consult a tax professional or your actual paystub for exact figures.
 
----
-
-## Why "Budgetron"?
-
-Built for one person's real financial situation first — balancing a day job with growing an independent business — with the goal of being useful to anyone in the same boat.
-
----
-
 ## Budgetron Is Also Useful As
-
 Budgetron can be thought of as a:
 
 - side hustle budgeting app
@@ -139,10 +117,8 @@ Budgetron can be thought of as a:
 - desktop personal finance software
 - local-first finance app
 
----
 
 ## Related Search Terms
-
 Budgetron is relevant for people searching for:
 
 - free budgeting app
@@ -167,15 +143,16 @@ Budgetron is relevant for people searching for:
 - budgeting for Etsy sellers
 - budgeting for content creators
 
----
-
 ## Why Budgetron Exists
-
 Most personal finance software assumes either a traditional household budget or a full-time business.
 
 Budgetron was built for the growing number of people living somewhere in the middle: employees who are building something after work.
 
 Whether you're creating games, writing software, selling digital products, streaming, freelancing, consulting, or running an online shop, Budgetron helps you understand how your paycheck, living expenses, business costs, and side income all fit together in one place.
+
+## Why "Budgetron"?
+
+Built for one person's real financial situation first — balancing a day job with growing an independent business — with the goal of being useful to anyone in the same boat.
 
 ---
 
